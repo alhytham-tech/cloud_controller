@@ -1,0 +1,8 @@
+.idea
+.vscode
+rough
+fastapienv
+.pyc
+__pycache__
+transport_env
+tax_env
