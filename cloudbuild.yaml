@@ -4,14 +4,14 @@ steps:
   args: [
     'build', 
     '-t', 
-    'gcr.io/$PROJECT_ID/secureng-niger-tax-backend:$COMMIT_SHA', '.',
+    'gcr.io/$PROJECT_ID/cloud-controller-backend:$COMMIT_SHA', '.',
     "--build-arg", "GPG_PRIVATE_KEY_PART_1=${_GPG_PRIVATE_KEY_PART_1}",
     "--build-arg", "GPG_PRIVATE_KEY_PART_2=${_GPG_PRIVATE_KEY_PART_2}"
   ]
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/secureng-niger-tax-backend:$COMMIT_SHA']
+  args: ['push', 'gcr.io/$PROJECT_ID/cloud-controller-backend:$COMMIT_SHA']
 
 # Deploy Container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -19,12 +19,12 @@ steps:
   args:
     - "run"
     - "deploy"
-    - "secureng-niger-tax-backend"
+    - "cloud-controller-backend"
     - "--image"
-    - "gcr.io/$PROJECT_ID/secureng-niger-tax-backend:$COMMIT_SHA"
+    - "gcr.io/$PROJECT_ID/cloud-controller-backend:$COMMIT_SHA"
     - "--region"
     - "us-central1"
     - "--platform"
     - "managed"
 images:
-  - "gcr.io/$PROJECT_ID/secureng-niger-tax-backend:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/cloud-controller-backend:$COMMIT_SHA"
