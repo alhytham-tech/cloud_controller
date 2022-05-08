@@ -29,7 +29,7 @@ revision_router = APIRouter(
 @service_router.get(
     "/view/{project_id}/{location}/{service_id}",
     response_model=schemas.CloudRunService,
-    # dependencies=[Depends(HasPermission(["can_view_cloud_run_service"]))],
+    dependencies=[Depends(HasPermission(["can_view_cloud_run_service"]))],
 )
 async def get_cloud_run_service(
     project_id: str,
@@ -44,16 +44,13 @@ async def get_cloud_run_service(
 @service_router.put(
     "/auto_scale/{project_id}/{location}/{service_id}",
     response_model=schemas.CloudRunService,
-    # dependencies=[Depends(HasPermission(["can_update_cloud_run_service"]))],
+    dependencies=[Depends(HasPermission(["can_update_cloud_run_service"]))],
 )
 async def auto_scale_cloud_run_service(
     project_id: str = Path(..., description="Google Cloud Project ID"),
     location: str = Path(..., description="Valid google cloud region"),
     service_id: str = Path(..., description="Service ID"),
     auto_scale: schemas.CloudRunAutoScale = Depends(),
-    # min_container_count: int = Query(..., description="Number of containers to scale the service to"),
-    # max_container_count: Optional[int] = Query(300, description="Maximum number of containers"),
-    # cpu_always_on: Optional[bool] = Query(False, description="whether cpu is always on"),
 ):
     return cruds.auto_scale_cloud_run_service(project_id, location, service_id, auto_scale)
 
@@ -63,7 +60,7 @@ async def auto_scale_cloud_run_service(
 @service_router.get(
     "/list/{project_id}/{location}",
     response_model=schemas.CloudRunServiceList,
-    # dependencies=[Depends(HasPermission(["can_list_cloud_run_services"]))],
+    dependencies=[Depends(HasPermission(["can_list_cloud_run_services"]))],
 )
 async def list_cloud_run_services(
     project_id: str = Path(..., description="Google Cloud Project ID"),
@@ -77,7 +74,7 @@ async def list_cloud_run_services(
 @revision_router.get(
     "/list/{project_id}/{location}/{service_id}",
     response_model=schemas.CloudRunRevisionList,
-    # dependencies=[Depends(HasPermission(["can_list_cloud_run_revisions"]))],
+    dependencies=[Depends(HasPermission(["can_list_cloud_run_revisions"]))],
 )
 async def list_cloud_run_revisions(
     project_id: str = Path(..., description="Google Cloud Project ID"),

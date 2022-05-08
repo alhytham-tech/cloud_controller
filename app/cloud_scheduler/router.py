@@ -7,8 +7,8 @@
 
 
 from typing import Optional
-from fastapi import APIRouter, Depends, Query, Body, Path
-from app.dependencies.dependencies import HasPermission, get_current_user, get_db
+from fastapi import APIRouter, Depends, Query
+from app.dependencies.dependencies import HasPermission
 from app.cloud_scheduler import schemas, cruds
 
 
@@ -23,7 +23,7 @@ job_router = APIRouter(
 @job_router.post(
     "/create/{project_id}/{location}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_create_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_create_cloud_scheduler_job"]))],
 )
 async def create_cloud_scheduler_job(
     project_id: str,
@@ -37,7 +37,7 @@ async def create_cloud_scheduler_job(
 @job_router.get(
     "/view/{project_id}/{location}/{job_id}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_view_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_view_cloud_scheduler_job"]))],
 )
 async def get_cloud_scheduler_job(
     project_id: str,
@@ -52,7 +52,7 @@ async def get_cloud_scheduler_job(
 @job_router.put(
     "/update/{project_id}/{location}/{job_id}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_update_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_update_cloud_scheduler_job"]))],
 )
 async def update_cloud_scheduler_job(
     project_id: str,
@@ -66,7 +66,7 @@ async def update_cloud_scheduler_job(
 @job_router.put(
     "/run/{project_id}/{location}/{job_id}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_run_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_run_cloud_scheduler_job"]))],
 )
 async def run_cloud_scheduler_job(
     project_id: str,
@@ -79,7 +79,7 @@ async def run_cloud_scheduler_job(
 @job_router.put(
     "/pause/{project_id}/{location}/{job_id}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_pause_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_pause_cloud_scheduler_job"]))],
 )
 async def pause_cloud_scheduler_job(
     project_id: str,
@@ -92,7 +92,7 @@ async def pause_cloud_scheduler_job(
 @job_router.put(
     "/resume/{project_id}/{location}/{job_id}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_resume_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_resume_cloud_scheduler_job"]))],
 )
 async def resume_cloud_scheduler_job(
     project_id: str,
@@ -107,7 +107,7 @@ async def resume_cloud_scheduler_job(
 @job_router.get(
     "/list/{project_id}/{location}",
     response_model=schemas.CloudSchedulerJobList,
-    # dependencies=[Depends(HasPermission(["can_list_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_list_cloud_scheduler_job"]))],
 )
 async def list_cloud_scheduler_jobs(
     project_id: str,
@@ -122,7 +122,7 @@ async def list_cloud_scheduler_jobs(
 @job_router.delete(
     "/delete/{project_id}/{location}/{job_id}",
     response_model=schemas.CloudSchedulerJob,
-    # dependencies=[Depends(HasPermission(["can_delete_cloud_scheduler_job"]))],
+    dependencies=[Depends(HasPermission(["can_delete_cloud_scheduler_job"]))],
 )
 async def delete_cloud_scheduler_job(
     project_id: str,
@@ -130,6 +130,4 @@ async def delete_cloud_scheduler_job(
     job_id: str,
 ):
     return cruds.delete_cloud_scheduler_job(project_id, location, job_id)
-
-# ============[ Helpers Routes]============
 

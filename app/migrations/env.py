@@ -9,18 +9,8 @@ from dotenv import load_dotenv
 
 import os
 
-from app.thirdparty import models
 from app.access_control import models
 from app.user import models
-from app.lga import models
-from app.nin import models
-from app.user_account import models
-from app.tax import models
-from app.unit import models
-from app.vehicle import models
-from app.organization import models
-from app.issuance import models
-from app.wallet import models
 
 load_dotenv()
 
